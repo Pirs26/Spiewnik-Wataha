@@ -1,0 +1,55 @@
+\documentclass{book}
+\usepackage[lmargin=10mm, rmargin=5mm, tmargin=5mm, bmargin=5mm, text={15cm,10cm},centering]{geometry}
+\geometry{papersize={105mm, 148mm}}
+\usepackage[ngerman, polish, english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[bookmarks]{hyperref}
+\usepackage[chorded]{songs}
+\usepackage{graphicx}
+\usepackage{afterpage}
+
+\pagestyle{empty}
+
+\newindex{titleidx}{cbtitle}
+\newauthorindex{authidx}{cbauth}
+\newscripindex{scripidx}{cbscrip}
+
+\songcolumns{1}
+\usepackage[parfill]{parskip}
+\renewcommand{\lyricfont}{\sffamily\normalsize}
+\renewcommand\printchord[1]{\sffamily\textmd\large#1}
+\renewcommand{\stitlefont}{\sffamily\textmd}
+\versesep=8pt
+
+%das hier adjustiert den abstand zwischen den chords und dem liedtext darunter
+\renewcommand{\clineparams}{
+  \baselineskip=11pt
+  \lineskiplimit=1pt
+  \lineskip=1pt
+}
+
+%include file for custom commands like \intro
+\input{commands}
+
+\begin{document}
+\input{titelseite}
+
+%two empty pages
+\newpage
+\mbox{}
+\thispagestyle{empty}
+\newpage
+
+\begin{songs}{titleidx,authidx,scripidx} 
+	\input{songs/00_import}
+\end{songs}
+
+\showindex{Inhaltsverzeichnis}{titleidx}
+
+%nicht genutzte indizes für andere inhaltsverzeichnisse
+%sollen diese genutzt werden, muss das makefile angepasst werden!
+%\showindex{Index of Authors and Composers}{authidx}
+%\showindex{Index of Scripture}{scripidx}
+
+\end{document}
+
