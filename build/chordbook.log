@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.6.8)  8 JUN 2026 22:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.6.8)  8 JUN 2026 23:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -396,7 +396,10 @@ Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 tex.def
 File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count320
-) (chordbook.aux)
+) (chordbook.aux
+Package babel Info: 'polish' activates 'polish' shorthands.
+(babel)             Reported on input line 8.
+)
 \openout1 = `chordbook.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
@@ -454,8 +457,6 @@ LaTeX Font Info:    ... okay on input line 44.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package babel Info: 'polish' activates 'polish' shorthands.
-(babel)             Reported on input line 44.
 
 (C:\Users\makwe\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
@@ -496,7 +497,7 @@ LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
 LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
 (Font)              using `T1/cmss/bx/n' instead on input line 7.
 
-<img/wataha-logo.jpg, id=3, 169.38281pt x 170.13562pt>
+<img/wataha-logo.jpg, id=23, 169.38281pt x 170.13562pt>
 File: img/wataha-logo.jpg Graphic file (type jpg)
 <use img/wataha-logo.jpg>
 Package pdftex.def Info: img/wataha-logo.jpg  used on input line 13.
@@ -518,7 +519,7 @@ LaTeX Font Warning: Font shape `T1/antp/m/sl' in size <5> not available
 [4{C:/Users/makwe/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/poltawski/ap-ec
 .enc}] [5]) (songs/A_my_nie_chcemy_uciekac_stad.tex [6] [7] [8])
 (songs/test.tex [9]) (songs/ZZ_grifftabellen.tex [10] [11]
-Underfull \vbox (badness 10000) detected at line 27
+Underfull \vbox (badness 10000) detected at line 26
  []
 
 [12])) [13]
@@ -543,21 +544,14 @@ LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-05-26>
  ***********
-
-
-Package rerunfilecheck Warning: File `chordbook.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `chordbook.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  73103E1101BB0333D3E14B7C924F78CD;701.
+Package rerunfilecheck Info: File `chordbook.out' has not changed.
+(rerunfilecheck)             Checksum: 4A5B1969AF7DCE463A06E6F7E7DC70E0;666.
  ) 
 Here is how much of TeX's memory you used:
- 11830 strings out of 467509
- 189137 string characters out of 5408781
- 893356 words of memory out of 5000000
- 40851 multiletter control sequences out of 15000+600000
+ 11836 strings out of 467509
+ 189194 string characters out of 5408781
+ 893362 words of memory out of 5000000
+ 40857 multiletter control sequences out of 15000+600000
  652401 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  74i,7n,79p,574b,561s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -575,9 +569,9 @@ Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/makwe/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/User
 s/makwe/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
 
-Output written on chordbook.pdf (14 pages, 162993 bytes).
+Output written on chordbook.pdf (14 pages, 164494 bytes).
 PDF statistics:
- 305 PDF objects out of 1000 (max. 8388607)
+ 320 PDF objects out of 1000 (max. 8388607)
  20 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 
