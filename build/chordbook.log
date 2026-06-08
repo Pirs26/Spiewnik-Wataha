@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.6.8)  8 JUN 2026 21:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.5) (preloaded format=pdflatex 2026.6.8)  8 JUN 2026 22:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -396,30 +396,27 @@ Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 tex.def
 File: l3backend-pdftex.def 2026-02-18 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count320
-) (chordbook.aux
-Package babel Info: 'polish' activates 'polish' shorthands.
-(babel)             Reported on input line 8.
-)
+) (chordbook.aux)
 \openout1 = `chordbook.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 44.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -457,6 +454,8 @@ LaTeX Font Info:    ... okay on input line 43.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+Package babel Info: 'polish' activates 'polish' shorthands.
+(babel)             Reported on input line 44.
 
 (C:\Users\makwe\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
@@ -483,7 +482,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring OFF on input line 43.
+Package hyperref Info: Link coloring OFF on input line 44.
  (chordbook.out) (chordbook.out)
 \@outlinefile=\write4
 \openout4 = `chordbook.out'.
@@ -497,7 +496,7 @@ LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
 LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
 (Font)              using `T1/cmss/bx/n' instead on input line 7.
 
-<img/wataha-logo.jpg, id=19, 169.38281pt x 170.13562pt>
+<img/wataha-logo.jpg, id=3, 169.38281pt x 170.13562pt>
 File: img/wataha-logo.jpg Graphic file (type jpg)
 <use img/wataha-logo.jpg>
 Package pdftex.def Info: img/wataha-logo.jpg  used on input line 13.
@@ -511,40 +510,21 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 1.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 1.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 1.
-
-
-LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
-(Font)              using `T1/cmss/bx/n' instead on input line 76.
 
 
 LaTeX Font Warning: Font shape `T1/antp/m/sl' in size <5> not available
 (Font)              Font shape `T1/antp/m/it' tried instead on input line 76.
 
 [4{C:/Users/makwe/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/poltawski/ap-ec
-.enc}] [5] [6]) (songs/ZZ_grifftabellen.tex
-
-LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
-(Font)              using `T1/cmss/bx/n' instead on input line 27.
-
-[7]
+.enc}] [5]) (songs/A_my_nie_chcemy_uciekac_stad.tex [6] [7] [8])
+(songs/test.tex [9]) (songs/ZZ_grifftabellen.tex [10] [11]
 Underfull \vbox (badness 10000) detected at line 27
  []
 
-[8]) (songs/A_my_nie_chcemy_uciekac_stad.tex
+[12])) [13]
 
 LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
-(Font)              using `T1/cmss/bx/n' instead on input line 83.
-
-
-LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
-(Font)              using `T1/cmss/bx/n' instead on input line 83.
-
-[9] [10] [11] [12])) [13]
-
-LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
-(Font)              using `T1/cmss/bx/n' instead on input line 59.
+(Font)              using `T1/cmss/bx/n' instead on input line 60.
 
 (cbtitle.sbx) [14
 
@@ -563,32 +543,41 @@ LaTeX Font Warning: Font shape `T1/cmss/b/n' undefined
 LaTeX2e <2026-06-01>
 L3 programming layer <2026-05-26>
  ***********
-Package rerunfilecheck Info: File `chordbook.out' has not changed.
-(rerunfilecheck)             Checksum: 83365382A52E27BED5E4161B84AA48C0;620.
+
+
+Package rerunfilecheck Warning: File `chordbook.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `chordbook.out':
+(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
+(rerunfilecheck)             After:  73103E1101BB0333D3E14B7C924F78CD;701.
  ) 
 Here is how much of TeX's memory you used:
- 11829 strings out of 467509
- 189017 string characters out of 5408781
- 853362 words of memory out of 5000000
- 40852 multiletter control sequences out of 15000+600000
- 649989 words of font info for 72 fonts, out of 8000000 for 9000
+ 11830 strings out of 467509
+ 189137 string characters out of 5408781
+ 893356 words of memory out of 5000000
+ 40851 multiletter control sequences out of 15000+600000
+ 652401 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 74i,7n,79p,551b,555s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,7n,79p,574b,561s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\makwe\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsi
 1000.pk> <C:\Users\makwe\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
-0\ecss1000.pk> <C:\Users\makwe\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
-/dpi600\ecsx1728.pk> <C:\Users\makwe\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
-pen/ec/dpi600\ecss0900.pk> <C:\Users\makwe\AppData\Local\MiKTeX\fonts/pk/ljfour
-/jknappen/ec/dpi600\ecsx1440.pk> <C:\Users\makwe\AppData\Local\MiKTeX\fonts/pk/
-ljfour/jknappen/ec/dpi600\ecsx2074.pk><C:/Users/makwe/AppData/Local/Programs/Mi
-KTeX/fonts/type1/gust/poltawski/antpb6.pfb><C:/Users/makwe/AppData/Local/Progra
-ms/MiKTeX/fonts/type1/gust/poltawski/antpr10.pfb><C:/Users/makwe/AppData/Local/
-Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/makwe/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/makw
-e/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on chordbook.pdf (14 pages, 156949 bytes).
+0\ecsx1728.pk> <C:\Users\makwe\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
+/dpi525\ecss0800.pk> <C:\Users\makwe\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
+pen/ec/dpi600\ecss1000.pk> <C:\Users\makwe\AppData\Local\MiKTeX\fonts/pk/ljfour
+/jknappen/ec/dpi600\ecss0900.pk> <C:\Users\makwe\AppData\Local\MiKTeX\fonts/pk/
+ljfour/jknappen/ec/dpi600\ecsx1440.pk> <C:\Users\makwe\AppData\Local\MiKTeX\fon
+ts/pk/ljfour/jknappen/ec/dpi600\ecsx2074.pk><C:/Users/makwe/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/gust/poltawski/antpb6.pfb><C:/Users/makwe/AppData/Local/
+Programs/MiKTeX/fonts/type1/gust/poltawski/antpr10.pfb><C:/Users/makwe/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/makwe/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/User
+s/makwe/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+
+Output written on chordbook.pdf (14 pages, 162993 bytes).
 PDF statistics:
- 282 PDF objects out of 1000 (max. 8388607)
- 19 named destinations out of 1000 (max. 500000)
- 38 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 305 PDF objects out of 1000 (max. 8388607)
+ 20 named destinations out of 1000 (max. 500000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

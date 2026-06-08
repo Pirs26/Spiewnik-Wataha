@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaTeX Visual Songbook Studio (L0ren2 Edition)</title>
+    <style>
+        body { font-family: 'Georgia', serif; background-color: #e2e8f0; margin: 0; padding: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        
+        /* Top Toolbar */
+        .toolbar { background: white; padding: 15px 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 10; display: flex; flex-direction: column; gap: 15px; flex-shrink: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+        .toolbar-top { display: flex; justify-content: space-between; align-items: center; }
+        .toolbar-bottom { display: flex; gap: 15px; align-items: center; background: #f8fafc; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0; flex-wrap: wrap;}
+        
+        h1 { margin: 0; font-size: 20px; color: #1e293b; }
+        
+        .btn { padding: 8px 14px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px;}
+        .btn-primary { background: #28a745; color: white; }
+        .btn-primary:hover { background: #218838; }
+        .btn-secondary { background: #e2e8f0; color: #475569; }
+        .btn-secondary:hover { background: #cbd5e1; }
+        
+        .btn-add { background: #3b82f6; color: white; }
+        .btn-add:hover { background: #2563eb; }
+        .btn-add-alt { background: #8b5cf6; color: white; } /* Purple for Intros/Outros */
+        .btn-add-alt:hover { background: #7c3aed; }
+        .btn-add-bridge { background: #f59e0b; color: white; } /* Orange for Bridge */
+        .btn-add-bridge:hover { background: #d97706; }
+
+        /* Chord Palette */
+        .palette-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; border-right: 2px solid #cbd5e1; padding-right: 15px;}
+        .chord-pill { background-color: #ef4444; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold; cursor: grab; user-select: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-size: 14px;}
+        .chord-pill:active { cursor: grabbing; transform: scale(0.95); }
+        .add-chord input { width: 60px; padding: 4px 8px; border: 1px solid #ccc; border-radius: 4px; font-weight: bold;}
+        .add-chord button { background: #64748b; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+
+        /* Main Workspace */
+        .workspace { flex-grow: 1; overflow-y: auto; padding: 40px 20px; display: flex; justify-content: center; }
+        
+        /* The "Paper" (Visual Editor) */
+        .paper { background: white; width: 100%; max-width: 800px; padding: 60px; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-height: 800px; box-sizing: border-box; }
+        
+        .song-title { font-size: 36px; font-weight: bold; margin-bottom: 5px; outline: none; border-bottom: 1px dashed transparent; transition: 0.2s;}
+        .song-title:focus { border-bottom: 1px dashed #ccc; }
+        .song-title:empty:before { content: "Song Title..."; color: #aaa; }
+        
+        .song-author { font-size: 18px; color: #64748b; margin-bottom: 40px; font-style: italic; outline: none; border-bottom: 1px dashed transparent; transition: 0.2s;}
+        .song-author:focus { border-bottom: 1px dashed #ccc; }
+        .song-author:empty:before { content: "Author / Composer..."; color: #aaa; }
+
+        /* Editable Blocks & Color Coding */
+        .document-blocks { display: flex; flex-direction: column; gap: 20px; }
+        .block-wrapper { position: relative; padding: 15px 15px 15px 40px; border: 1px solid transparent; border-radius: 6px; transition: border 0.2s, background 0.2s; background: white;}
+        .block-wrapper:hover { border: 1px solid #e2e8f0; background: #f8fafc; }
+        .block-wrapper.dragging { opacity: 0.5; border: 2px dashed #3b82f6 !important; background: #eff6ff;}
+        
+        /* Specific Block Colors */
+        .block-wrapper.verse { border-left: 4px solid #cbd5e1; border-radius: 0 6px 6px 0; }
+        .block-wrapper.verse:hover { border: 1px solid #e2e8f0; border-left: 4px solid #cbd5e1; }
+        
+        .block-wrapper.chorus { border-left: 4px solid #3b82f6; background: #eff6ff; border-radius: 0 6px 6px 0; }
+        .block-wrapper.chorus:hover { border: 1px solid #bfdbfe; border-left: 4px solid #3b82f6; }
+
+        .block-wrapper.intro, .block-wrapper.outro { border-left: 4px solid #8b5cf6; background: #f5f3ff; border-radius: 0 6px 6px 0; }
+        .block-wrapper.intro:hover, .block-wrapper.outro:hover { border: 1px solid #ddd6fe; border-left: 4px solid #8b5cf6; }
+
+        .block-wrapper.nlintro { border-left: 4px solid #64748b; background: #f8fafc; border-radius: 0 6px 6px 0; }
+        .block-wrapper.nlintro:hover { border: 1px solid #e2e8f0; border-left: 4px solid #64748b; }
+
+        .block-wrapper.bridge { border-left: 4px solid #f59e0b; background: #fffbeb; border-radius: 0 6px 6px 0; }
+        .block-wrapper.bridge:hover { border: 1px solid #fde68a; border-left: 4px solid #f59e0b; }
+        
+        /* Block Controls (Drag, Up, Down, Duplicate, Delete) */
+        .drag-grip { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); cursor: grab; font-size: 22px; color: #cbd5e1; user-select: none; display: none; }
+        .block-wrapper:hover .drag-grip { display: flex; }
+        .drag-grip:active { cursor: grabbing; color: #64748b; }
+
+        .block-controls { position: absolute; top: 10px; right: 10px; display: none; gap: 5px; font-family: sans-serif;}
+        .block-wrapper:hover .block-controls { display: flex; }
+        .block-controls button { background: #e2e8f0; border: none; border-radius: 4px; cursor: pointer; color: #475569; font-weight: bold; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; transition: 0.2s; font-size: 14px;}
+        .block-controls button:hover { background: #cbd5e1; }
+        .block-controls .block-delete { background: #ef4444; color: white; }
+        .block-controls .block-delete:hover { background: #dc2626; }
+
+        .block-label { font-family: sans-serif; font-size: 12px; font-weight: bold; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px; user-select: none; }
+        
+        .editable-content { min-height: 50px; outline: none; line-height: 2.8; font-size: 18px; white-space: pre-wrap; padding-top: 15px;}
+        .editable-content:empty:before { content: "Type lyrics here. Drag chords from the top menu..."; color: #cbd5e1; font-style: italic; }
+        .nlintro .editable-content:empty:before { content: "Instrumental... Drop chords here (no lyrics needed)."; }
+
+        /* Draggable Chord Anchors inside the text */
+        .chord-anchor { position: relative; display: inline; user-select: none; }
+        .chord-text { position: absolute; bottom: 100%; left: 0; margin-bottom: 2px; color: #ef4444; font-weight: bold; font-family: sans-serif; font-size: 15px; white-space: nowrap; cursor: grab; transition: 0.1s; padding: 2px 4px; border-radius: 3px; margin-left: -4px; z-index: 2; line-height: 1;}
+        .chord-text:hover { background: #fee2e2; }
+        .chord-text:active { cursor: grabbing; transform: scale(0.95); }
+        
+        /* Delete Badge on Chords */
+        .chord-delete-btn { position: absolute; top: -8px; right: -8px; background: #dc2626; color: white; border-radius: 50%; width: 14px; height: 14px; font-size: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transition: 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); font-family: sans-serif; z-index: 3;}
+        .chord-text:hover .chord-delete-btn { opacity: 1; }
+        .chord-delete-btn:hover { background: #b91c1c; transform: scale(1.1); }
+
+        /* Code Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; justify-content: center; align-items: center; }
+        .modal-content { background: white; width: 800px; max-width: 90%; height: 80%; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+        .modal-header { padding: 15px 20px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; font-weight: bold; }
+        .modal-body { flex-grow: 1; padding: 20px; }
+        .modal-body textarea { width: 100%; height: 100%; resize: none; font-family: monospace; font-size: 14px; padding: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background: #f8fafc;}
+        .close-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b; }
+    </style>
+</head>
+<body>
+
+<div class="toolbar">
+    <div class="toolbar-top">
+        <h1>LaTeX Visual Studio <span style="font-size: 12px; color:#64748b; font-weight:normal;">(L0ren2 Format)</span></h1>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-secondary" onclick="showCode()">View LaTeX Code</button>
+            <button class="btn btn-primary" onclick="exportTex()">Download .tex File</button>
+        </div>
+    </div>
+    
+    <div class="toolbar-bottom">
+        <div class="palette-group" id="palette">
+            </div>
+        <div class="add-chord" style="border-right: 2px solid #cbd5e1; padding-right: 15px;">
+            <input type="text" id="new-chord" placeholder="F#m">
+            <button onclick="addChord()">Add</button>
+        </div>
+        
+        <div style="display: flex; gap: 8px;">
+            <button class="btn btn-add" onclick="addBlock('verse')">+ Verse</button>
+            <button class="btn btn-add" onclick="addBlock('chorus')">+ Chorus</button>
+            <button class="btn btn-add-bridge" onclick="addBlock('bridge')">+ Bridge</button>
+            <button class="btn btn-add-alt" onclick="addBlock('intro')">+ Intro</button>
+            <button class="btn btn-secondary" onclick="addBlock('nlintro')" title="Instrumental Intro (No Lyrics)">+ Inst. Intro</button>
+            <button class="btn btn-add-alt" onclick="addBlock('outro')">+ Outro</button>
+        </div>
+    </div>
+</div>
+
+<div class="workspace">
+    <div class="paper">
+        <div class="song-title" id="song-title" contenteditable="true"></div>
+        <div class="song-author" id="song-author" contenteditable="true"></div>
+        
+        <div class="document-blocks" id="blocks-container">
+            </div>
+    </div>
+</div>
+
+<div class="modal" id="codeModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span>Generated LaTeX Code</span>
+            <button class="close-btn" onclick="document.getElementById('codeModal').style.display='none'">&times;</button>
+        </div>
+        <div class="modal-body">
+            <textarea id="rawLatexOutput" readonly></textarea>
+        </div>
+    </div>
+</div>
+
+<script>
+    const palette = document.getElementById('palette');
+    const blocksContainer = document.getElementById('blocks-container');
+    let chords = ["C", "d", "A", "B", "a", "G", "e", "F"];
+    
+    let draggedChordNode = null; 
+    let draggedBlockNode = null;
+
+    // --- 1. CHORD PALETTE ---
+    function renderPalette() {
+        palette.innerHTML = '<span style="font-size: 14px; font-weight: bold; color: #64748b; margin-right: 5px;">Drag Chords:</span>';
+        chords.forEach(c => {
+            let pill = document.createElement('div');
+            pill.className = 'chord-pill';
+            pill.draggable = true;
+            pill.innerText = c;
+            pill.addEventListener('dragstart', e => {
+                draggedChordNode = null; 
+                e.dataTransfer.setData('text/plain', c);
+            });
+            palette.appendChild(pill);
+        });
+    }
+
+    function addChord() {
+        const val = document.getElementById('new-chord').value.trim();
+        if (val && !chords.includes(val)) { chords.push(val); renderPalette(); }
+        document.getElementById('new-chord').value = '';
+    }
+
+    // --- 2. CHORD LOGIC ---
+    function setupChordNode(span, chordName) {
+        const chordTextSpan = span.querySelector('.chord-text');
+        
+        chordTextSpan.addEventListener('dragstart', ev => {
+            draggedChordNode = span;
+            ev.dataTransfer.setData('text/plain', chordName);
+            ev.stopPropagation(); 
+        });
+
+        const delBtn = span.querySelector('.chord-delete-btn');
+        delBtn.addEventListener('click', (ev) => {
+            ev.stopPropagation(); 
+            span.remove();
+        });
+    }
+
+    document.addEventListener('dragover', e => {
+        if (!draggedBlockNode) e.preventDefault(); 
+    });
+
+    document.addEventListener('drop', e => {
+        if (draggedBlockNode) return; 
+
+        e.preventDefault();
+        const chordName = e.dataTransfer.getData('text/plain');
+        if (!chordName) return;
+
+        let successfullyDroppedInText = false;
+        
+        if (e.target.classList.contains('editable-content') || e.target.closest('.editable-content')) {
+            let range;
+            if (document.caretRangeFromPoint) {
+                range = document.caretRangeFromPoint(e.clientX, e.clientY);
+            } else if (document.caretPositionFromPoint) {
+                let pos = document.caretPositionFromPoint(e.clientX, e.clientY);
+                range = document.createRange();
+                range.setStart(pos.offsetNode, pos.offset);
+            }
+            
+            if (range) {
+                if (draggedChordNode) draggedChordNode.remove();
+
+                const span = document.createElement('span');
+                span.className = 'chord-anchor';
+                span.contentEditable = "false";
+                
+                span.innerHTML = `&#8203;<span class="chord-text" draggable="true" title="Drag to move.">
+                    ${chordName}
+                    <span class="chord-delete-btn" title="Delete chord">&times;</span>
+                </span>`;
+                
+                setupChordNode(span, chordName);
+
+                range.insertNode(span);
+                
+                range.setStartAfter(span);
+                range.collapse(true);
+                const sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+                
+                successfullyDroppedInText = true;
+            }
+        }
+
+        if (draggedChordNode && !successfullyDroppedInText) {
+            draggedChordNode.remove();
+        }
+        
+        draggedChordNode = null;
+    });
+
+    // --- 3. BLOCK MANAGEMENT & REORDERING ---
+    function moveBlockUp(btn) {
+        const block = btn.closest('.block-wrapper');
+        const prev = block.previousElementSibling;
+        if (prev) block.parentNode.insertBefore(block, prev);
+    }
+
+    function moveBlockDown(btn) {
+        const block = btn.closest('.block-wrapper');
+        const next = block.nextElementSibling;
+        if (next) block.parentNode.insertBefore(next, block);
+    }
+
+    function getBlockLabel(type) {
+        switch(type) {
+            case 'verse': return 'Verse';
+            case 'chorus': return 'Chorus';
+            case 'intro': return 'Intro';
+            case 'nlintro': return 'Instrumental Intro';
+            case 'bridge': return 'Bridge';
+            case 'outro': return 'Outro';
+            default: return 'Block';
+        }
+    }
+
+    function createBlockElement(type) {
+        const wrapper = document.createElement('div');
+        wrapper.className = `block-wrapper ${type}`;
+        wrapper.dataset.type = type;
+        
+        const labelText = getBlockLabel(type);
+        
+        wrapper.innerHTML = `
+            <div class="drag-grip" draggable="true" title="Drag to rearrange">⋮⋮</div>
+            <div class="block-controls">
+                <button onclick="moveBlockUp(this)" title="Move Up">&uarr;</button>
+                <button onclick="moveBlockDown(this)" title="Move Down">&darr;</button>
+                <button onclick="duplicateBlock(this)" title="Duplicate Block">⧉</button>
+                <button class="block-delete" onclick="this.closest('.block-wrapper').remove()" title="Delete Block">&times;</button>
+            </div>
+            <div class="block-label">${labelText}</div>
+            <div class="editable-content" contenteditable="true"></div>
+        `;
+        
+        const grip = wrapper.querySelector('.drag-grip');
+        grip.addEventListener('dragstart', e => {
+            draggedBlockNode = wrapper;
+            e.dataTransfer.effectAllowed = 'move';
+            wrapper.classList.add('dragging');
+        });
+        grip.addEventListener('dragend', () => {
+            wrapper.classList.remove('dragging');
+            draggedBlockNode = null;
+        });
+
+        const editable = wrapper.querySelector('.editable-content');
+        editable.addEventListener("paste", function(e) {
+            e.preventDefault();
+            const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+            document.execCommand("insertText", false, text);
+        });
+
+        return wrapper;
+    }
+
+    function addBlock(type) {
+        blocksContainer.appendChild(createBlockElement(type));
+    }
+
+    function duplicateBlock(btn) {
+        const originalBlock = btn.closest('.block-wrapper');
+        const type = originalBlock.dataset.type;
+        const originalContent = originalBlock.querySelector('.editable-content').innerHTML;
+
+        const newBlock = createBlockElement(type);
+        originalBlock.parentNode.insertBefore(newBlock, originalBlock.nextSibling);
+
+        const newContentDiv = newBlock.querySelector('.editable-content');
+        newContentDiv.innerHTML = originalContent;
+
+        newContentDiv.querySelectorAll('.chord-anchor').forEach(anchor => {
+            const textSpan = anchor.querySelector('.chord-text');
+            const chordName = Array.from(textSpan.childNodes)
+                .filter(node => node.nodeType === Node.TEXT_NODE)
+                .map(node => node.nodeValue.trim())
+                .join('');
+                
+            setupChordNode(anchor, chordName);
+        });
+    }
+
+    blocksContainer.addEventListener('dragover', e => {
+        if (!draggedBlockNode) return;
+        e.preventDefault();
+        
+        const draggableElements = [...blocksContainer.querySelectorAll('.block-wrapper:not(.dragging)')];
+        const afterElement = draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = e.clientY - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+
+        if (afterElement == null) {
+            blocksContainer.appendChild(draggedBlockNode);
+        } else {
+            blocksContainer.insertBefore(draggedBlockNode, afterElement);
+        }
+    });
+
+    // --- 4. L0REN2 LATEX GENERATOR ---
+    function parseHtmlToLatex(element) {
+        let result = '';
+        for (let node of element.childNodes) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                result += node.nodeValue.replace(/\u200B/g, '');
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                if (node.classList.contains('chord-anchor')) {
+                    let clone = node.cloneNode(true);
+                    let btn = clone.querySelector('.chord-delete-btn');
+                    if(btn) btn.remove();
+                    
+                    const chordStr = clone.innerText.replace(/\u200B/g, '').trim();
+                    result += `\\[${chordStr}]`;
+                } else if (node.tagName === 'DIV' || node.tagName === 'P') {
+                    if (result.length > 0 && !result.endsWith('\n')) result += '\n';
+                    result += parseHtmlToLatex(node);
+                    result += '\n';
+                } else if (node.tagName === 'BR') {
+                    result += '\n';
+                } else {
+                    result += parseHtmlToLatex(node);
+                }
+            }
+        }
+        return result.replace(/\n{3,}/g, '\n\n').trim();
+    }
+
+    function buildLatexString() {
+        const title = document.getElementById('song-title').innerText.trim() || 'Untitled Song';
+        const author = document.getElementById('song-author').innerText.trim() || 'Unknown Author';
+        
+        let tex = `\\beginsong{${title}}[by={${author}}]\n\n`;
+
+        const blocks = document.querySelectorAll('.block-wrapper');
+        blocks.forEach(block => {
+            const type = block.dataset.type;
+            const contentDiv = block.querySelector('.editable-content');
+            const latexText = parseHtmlToLatex(contentDiv);
+            
+            if (latexText) {
+                // Formatting for L0ren2 specific commands
+                if (type === 'verse') tex += `\\beginverse\n${latexText}\n\\endverse\n\n`;
+                else if (type === 'chorus') tex += `\\beginchorus\n${latexText}\n\\endchorus\n\n`;
+                else if (type === 'intro') tex += `\\intro{\n${latexText}\n}\n\n`;
+                else if (type === 'nlintro') tex += `\\nlintro{\n${latexText}\n}\n\n`;
+                else if (type === 'bridge') tex += `\\bridge{\n${latexText}\n}\n\n`;
+                else if (type === 'outro') tex += `\\outro{\n${latexText}\n}\n\n`;
+            }
+        });
+
+        tex += `\\endsong\n`;
+        return tex;
+    }
+
+    function showCode() {
+        document.getElementById('rawLatexOutput').value = buildLatexString();
+        document.getElementById('codeModal').style.display = 'flex';
+    }
+
+    function exportTex() {
+        const tex = buildLatexString();
+        const title = document.getElementById('song-title').innerText.trim() || 'Song';
+        const fileName = title.replace(/ /g, "_") + ".tex";
+
+        const blob = new Blob([tex], { type: "text/plain" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    renderPalette();
+    addBlock('verse');
+</script>
+
+</body>
+</html>
