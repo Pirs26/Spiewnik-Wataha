@@ -12,20 +12,22 @@
         .toolbar-top { display: flex; justify-content: space-between; align-items: center; }
         .toolbar-bottom { display: flex; gap: 15px; align-items: center; background: #f8fafc; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0; flex-wrap: wrap;}
         
-        h1 { margin: 0; font-size: 20px; color: #1e293b; }
+        h1 { margin: 0; font-size: 20px; color: #1e293b; display: flex; align-items: center; gap: 10px;}
         
-        .btn { padding: 8px 14px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px;}
+        .btn { padding: 8px 14px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 13px; display: flex; align-items: center; gap: 5px;}
         .btn-primary { background: #28a745; color: white; }
         .btn-primary:hover { background: #218838; }
         .btn-secondary { background: #e2e8f0; color: #475569; }
         .btn-secondary:hover { background: #cbd5e1; }
+        .btn-import { background: #f59e0b; color: white; }
+        .btn-import:hover { background: #d97706; }
         
         .btn-add { background: #3b82f6; color: white; }
         .btn-add:hover { background: #2563eb; }
-        .btn-add-alt { background: #8b5cf6; color: white; } /* Purple for Intros/Outros */
+        .btn-add-alt { background: #8b5cf6; color: white; } 
         .btn-add-alt:hover { background: #7c3aed; }
-        .btn-add-bridge { background: #f59e0b; color: white; } /* Orange for Bridge */
-        .btn-add-bridge:hover { background: #d97706; }
+        .btn-add-bridge { background: #0ea5e9; color: white; } 
+        .btn-add-bridge:hover { background: #0284c7; }
 
         /* Chord Palette */
         .palette-group { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; border-right: 2px solid #cbd5e1; padding-right: 15px;}
@@ -37,7 +39,6 @@
         /* Main Workspace */
         .workspace { flex-grow: 1; overflow-y: auto; padding: 40px 20px; display: flex; justify-content: center; }
         
-        /* The "Paper" (Visual Editor) */
         .paper { background: white; width: 100%; max-width: 800px; padding: 60px; border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); min-height: 800px; box-sizing: border-box; }
         
         .song-title { font-size: 36px; font-weight: bold; margin-bottom: 5px; outline: none; border-bottom: 1px dashed transparent; transition: 0.2s;}
@@ -54,7 +55,6 @@
         .block-wrapper:hover { border: 1px solid #e2e8f0; background: #f8fafc; }
         .block-wrapper.dragging { opacity: 0.5; border: 2px dashed #3b82f6 !important; background: #eff6ff;}
         
-        /* Specific Block Colors */
         .block-wrapper.verse { border-left: 4px solid #cbd5e1; border-radius: 0 6px 6px 0; }
         .block-wrapper.verse:hover { border: 1px solid #e2e8f0; border-left: 4px solid #cbd5e1; }
         
@@ -67,10 +67,10 @@
         .block-wrapper.nlintro { border-left: 4px solid #64748b; background: #f8fafc; border-radius: 0 6px 6px 0; }
         .block-wrapper.nlintro:hover { border: 1px solid #e2e8f0; border-left: 4px solid #64748b; }
 
-        .block-wrapper.bridge { border-left: 4px solid #f59e0b; background: #fffbeb; border-radius: 0 6px 6px 0; }
-        .block-wrapper.bridge:hover { border: 1px solid #fde68a; border-left: 4px solid #f59e0b; }
+        .block-wrapper.bridge { border-left: 4px solid #0ea5e9; background: #f0f9ff; border-radius: 0 6px 6px 0; }
+        .block-wrapper.bridge:hover { border: 1px solid #bae6fd; border-left: 4px solid #0ea5e9; }
         
-        /* Block Controls (Drag, Up, Down, Duplicate, Delete) */
+        /* Block Controls */
         .drag-grip { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); cursor: grab; font-size: 22px; color: #cbd5e1; user-select: none; display: none; }
         .block-wrapper:hover .drag-grip { display: flex; }
         .drag-grip:active { cursor: grabbing; color: #64748b; }
@@ -94,7 +94,6 @@
         .chord-text:hover { background: #fee2e2; }
         .chord-text:active { cursor: grabbing; transform: scale(0.95); }
         
-        /* Delete Badge on Chords */
         .chord-delete-btn { position: absolute; top: -8px; right: -8px; background: #dc2626; color: white; border-radius: 50%; width: 14px; height: 14px; font-size: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; transition: 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); font-family: sans-serif; z-index: 3;}
         .chord-text:hover .chord-delete-btn { opacity: 1; }
         .chord-delete-btn:hover { background: #b91c1c; transform: scale(1.1); }
@@ -114,16 +113,19 @@
     <div class="toolbar-top">
         <h1>LaTeX Visual Studio <span style="font-size: 12px; color:#64748b; font-weight:normal;">(L0ren2 Format)</span></h1>
         <div style="display: flex; gap: 10px;">
-            <button class="btn btn-secondary" onclick="showCode()">View LaTeX Code</button>
-            <button class="btn btn-primary" onclick="exportTex()">Download .tex File</button>
+            <!-- Hidden File Input -->
+            <input type="file" id="import-file" accept=".tex" style="display:none;" onchange="importTex(event)">
+            
+            <button class="btn btn-import" onclick="document.getElementById('import-file').click()">⇧ Upload .tex</button>
+            <button class="btn btn-secondary" onclick="showCode()">View Code</button>
+            <button class="btn btn-primary" onclick="exportTex()">⇩ Download .tex</button>
         </div>
     </div>
     
     <div class="toolbar-bottom">
-        <div class="palette-group" id="palette">
-            </div>
+        <div class="palette-group" id="palette"></div>
         <div class="add-chord" style="border-right: 2px solid #cbd5e1; padding-right: 15px;">
-            <input type="text" id="new-chord" placeholder="F#m">
+            <input type="text" id="new-chord" placeholder="F#m" autocomplete="off" spellcheck="false">
             <button onclick="addChord()">Add</button>
         </div>
         
@@ -132,7 +134,7 @@
             <button class="btn btn-add" onclick="addBlock('chorus')">+ Chorus</button>
             <button class="btn btn-add-bridge" onclick="addBlock('bridge')">+ Bridge</button>
             <button class="btn btn-add-alt" onclick="addBlock('intro')">+ Intro</button>
-            <button class="btn btn-secondary" onclick="addBlock('nlintro')" title="Instrumental Intro (No Lyrics)">+ Inst. Intro</button>
+            <button class="btn btn-secondary" onclick="addBlock('nlintro')">+ Inst. Intro</button>
             <button class="btn btn-add-alt" onclick="addBlock('outro')">+ Outro</button>
         </div>
     </div>
@@ -140,11 +142,9 @@
 
 <div class="workspace">
     <div class="paper">
-        <div class="song-title" id="song-title" contenteditable="true"></div>
-        <div class="song-author" id="song-author" contenteditable="true"></div>
-        
-        <div class="document-blocks" id="blocks-container">
-            </div>
+        <div class="song-title" id="song-title" contenteditable="true" spellcheck="false"></div>
+        <div class="song-author" id="song-author" contenteditable="true" spellcheck="false"></div>
+        <div class="document-blocks" id="blocks-container"></div>
     </div>
 </div>
 
@@ -155,7 +155,7 @@
             <button class="close-btn" onclick="document.getElementById('codeModal').style.display='none'">&times;</button>
         </div>
         <div class="modal-body">
-            <textarea id="rawLatexOutput" readonly></textarea>
+            <textarea id="rawLatexOutput" readonly spellcheck="false"></textarea>
         </div>
     </div>
 </div>
@@ -184,13 +184,83 @@
         });
     }
 
-    function addChord() {
-        const val = document.getElementById('new-chord').value.trim();
+    function addChord(chordVal = null) {
+        const val = chordVal || document.getElementById('new-chord').value.trim();
         if (val && !chords.includes(val)) { chords.push(val); renderPalette(); }
         document.getElementById('new-chord').value = '';
     }
 
-    // --- 2. CHORD LOGIC ---
+    // --- 2. FILE IMPORT (Reverse Parser) ---
+    function importTex(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            parseTexToWorkspace(e.target.result);
+        };
+        reader.readAsText(file);
+    }
+
+    function parseTexToWorkspace(tex) {
+        // 1. Extract Title and Author
+        const titleMatch = tex.match(/\\beginsong\{([^}]+)\}/);
+        const authorMatch = tex.match(/\[by=\{([^}]+)\}\]/);
+        
+        document.getElementById('song-title').innerText = titleMatch ? titleMatch[1].replace(/_/g, " ") : "";
+        document.getElementById('song-author').innerText = authorMatch ? authorMatch[1].replace(/_/g, " ") : "";
+
+        blocksContainer.innerHTML = ''; // Clear board
+
+        // 2. Extract Blocks using regex
+        // Matches \beginverse ... \endverse OR \intro{ ... }
+        const blockRegex = /\\(beginverse|beginchorus|intro|nlintro|bridge|outro)(?:\{|\n*)([\s\S]*?)(?:\\end(?:verse|chorus)|\})/g;
+        
+        let match;
+        let blocksFound = false;
+
+        while ((match = blockRegex.exec(tex)) !== null) {
+            blocksFound = true;
+            let type = match[1];
+            let rawContent = match[2].trim();
+            
+            let blockType = 'verse';
+            if (type === 'beginverse') blockType = 'verse';
+            else if (type === 'beginchorus') blockType = 'chorus';
+            else blockType = type; // intro, bridge, etc.
+
+            // Convert newlines to HTML breaks
+            let htmlContent = rawContent.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            htmlContent = htmlContent.replace(/\n/g, '<br>');
+            
+            // Convert \[C] tags to Floating Chords
+            htmlContent = htmlContent.replace(/\\\[([^\]]+)\]/g, (m, chord) => {
+                addChord(chord); // Dynamically add found chords to palette!
+                return `&#8203;<span class="chord-anchor" contenteditable="false"><span class="chord-text" draggable="true" title="Drag to move.">${chord}<span class="chord-delete-btn" title="Delete chord">&times;</span></span></span>`;
+            });
+
+            // Construct Block
+            const newBlock = createBlockElement(blockType);
+            newBlock.querySelector('.editable-content').innerHTML = htmlContent;
+            
+            // Re-bind Javascript drag/drop events to the imported chords
+            newBlock.querySelectorAll('.chord-anchor').forEach(anchor => {
+                const textSpan = anchor.querySelector('.chord-text');
+                const chordName = Array.from(textSpan.childNodes)
+                    .filter(node => node.nodeType === Node.TEXT_NODE)
+                    .map(node => node.nodeValue.trim())
+                    .join('');
+                setupChordNode(anchor, chordName);
+            });
+            
+            blocksContainer.appendChild(newBlock);
+        }
+
+        if (!blocksFound) addBlock('verse'); // Fallback if file was empty
+        document.getElementById('import-file').value = ''; // Reset input
+    }
+
+    // --- 3. CHORD LOGIC ---
     function setupChordNode(span, chordName) {
         const chordTextSpan = span.querySelector('.chord-text');
         
@@ -237,15 +307,10 @@
                 span.className = 'chord-anchor';
                 span.contentEditable = "false";
                 
-                span.innerHTML = `&#8203;<span class="chord-text" draggable="true" title="Drag to move.">
-                    ${chordName}
-                    <span class="chord-delete-btn" title="Delete chord">&times;</span>
-                </span>`;
-                
+                span.innerHTML = `&#8203;<span class="chord-text" draggable="true" title="Drag to move.">${chordName}<span class="chord-delete-btn" title="Delete chord">&times;</span></span>`;
                 setupChordNode(span, chordName);
 
                 range.insertNode(span);
-                
                 range.setStartAfter(span);
                 range.collapse(true);
                 const sel = window.getSelection();
@@ -256,14 +321,11 @@
             }
         }
 
-        if (draggedChordNode && !successfullyDroppedInText) {
-            draggedChordNode.remove();
-        }
-        
+        if (draggedChordNode && !successfullyDroppedInText) draggedChordNode.remove();
         draggedChordNode = null;
     });
 
-    // --- 3. BLOCK MANAGEMENT & REORDERING ---
+    // --- 4. BLOCK MANAGEMENT ---
     function moveBlockUp(btn) {
         const block = btn.closest('.block-wrapper');
         const prev = block.previousElementSibling;
@@ -304,7 +366,7 @@
                 <button class="block-delete" onclick="this.closest('.block-wrapper').remove()" title="Delete Block">&times;</button>
             </div>
             <div class="block-label">${labelText}</div>
-            <div class="editable-content" contenteditable="true"></div>
+            <div class="editable-content" contenteditable="true" spellcheck="false"></div>
         `;
         
         const grip = wrapper.querySelector('.drag-grip');
@@ -349,7 +411,6 @@
                 .filter(node => node.nodeType === Node.TEXT_NODE)
                 .map(node => node.nodeValue.trim())
                 .join('');
-                
             setupChordNode(anchor, chordName);
         });
     }
@@ -362,21 +423,15 @@
         const afterElement = draggableElements.reduce((closest, child) => {
             const box = child.getBoundingClientRect();
             const offset = e.clientY - box.top - box.height / 2;
-            if (offset < 0 && offset > closest.offset) {
-                return { offset: offset, element: child };
-            } else {
-                return closest;
-            }
+            if (offset < 0 && offset > closest.offset) return { offset: offset, element: child };
+            else return closest;
         }, { offset: Number.NEGATIVE_INFINITY }).element;
 
-        if (afterElement == null) {
-            blocksContainer.appendChild(draggedBlockNode);
-        } else {
-            blocksContainer.insertBefore(draggedBlockNode, afterElement);
-        }
+        if (afterElement == null) blocksContainer.appendChild(draggedBlockNode);
+        else blocksContainer.insertBefore(draggedBlockNode, afterElement);
     });
 
-    // --- 4. L0REN2 LATEX GENERATOR ---
+    // --- 5. EXPORT LATEX ---
     function parseHtmlToLatex(element) {
         let result = '';
         for (let node of element.childNodes) {
@@ -417,7 +472,6 @@
             const latexText = parseHtmlToLatex(contentDiv);
             
             if (latexText) {
-                // Formatting for L0ren2 specific commands
                 if (type === 'verse') tex += `\\beginverse\n${latexText}\n\\endverse\n\n`;
                 else if (type === 'chorus') tex += `\\beginchorus\n${latexText}\n\\endchorus\n\n`;
                 else if (type === 'intro') tex += `\\intro{\n${latexText}\n}\n\n`;
