@@ -9,13 +9,17 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc} % W nowym LaTeXu (po 2018 r.) jest to domyślne, ale nie zaszkodzi zostawić dla pewności.
 
-\usepackage{antpolt} % Czcionka Antykwa Półtawskiego
+\usepackage{tgpagella} % Czcionka Antykwa Półtawskiego
 \usepackage[chorded]{songs}
 \usepackage{graphicx}
 \usepackage{afterpage}
 
+
+
 % hyperref najlepiej ładować na samym końcu preambuły
 \usepackage[bookmarks]{hyperref}
+
+
 
 \pagestyle{empty}
 
@@ -31,12 +35,15 @@
 \renewcommand{\stitlefont}{\sffamily\textmd}
 \versesep=8pt
 
+
 %das hier adjustiert den abstand zwischen den chords und dem liedtext darunter
 \renewcommand{\clineparams}{
   \baselineskip=11pt
   \lineskiplimit=1pt
   \lineskip=1pt
 }
+
+
 
 %include file for custom commands like \intro
 \input{commands}
@@ -57,8 +64,14 @@
 	\input{songs/00_import}
 \end{songs}
 
-\showindex{Inhaltsverzeichnis}{titleidx}
-
+\begingroup
+\footnotesize
+\setlength{\columnsep}{0pt}
+\begin{minipage}[t]{1.5\textwidth} % Forces the block to be 10% wider than the text area
+\hspace*{-2.5cm} % Shifts the index back to the left to center it
+\showindex{Spis treści}{titleidx}
+\end{minipage}
+\endgroup
 %nicht genutzte indizes für andere inhaltsverzeichnisse
 %sollen diese genutzt werden, muss das makefile angepasst werden!
 %\showindex{Index of Authors and Composers}{authidx}

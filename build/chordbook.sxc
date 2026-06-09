@@ -10,7 +10,7 @@
 \SB@iwrite {titleidx}{A my nie chcemy uciekać stąd}
 \SB@iwrite {titleidx}{2}
 \SB@iwrite {titleidx}{song1-2.1}
-\SB@iwrite {authidx}{Jacek Kaczmarski, Przemysław Gintrowski}
+\SB@iwrite {authidx}{{Jacek Kaczmarski, Przemysław Gintrowski} title}
 \SB@iwrite {authidx}{2}
 \SB@iwrite {authidx}{song1-2.1}
 \SB@iwrite {titleidx}{test}
